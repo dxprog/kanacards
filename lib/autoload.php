@@ -14,7 +14,11 @@ function autoload($className) {
         $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-    require 'lib/' . $fileName;
+    $fileName = 'lib/' . strtolower($fileName);
+    
+    if (is_readable($fileName)) {
+        require $fileName;
+    }
 }
 
 spl_autoload_register('autoload');
