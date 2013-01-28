@@ -8,10 +8,12 @@
         <header>
             <h1>Kanacards</h1>
         </header>
-        <nav>
-            <ul>
-                <li class="login"><a href="{{loginUrl}}">Login</a></li>
-            </ul>
-        </nav>
+        <section id="login">
+            <nav>
+                <ul>
+                    <li class="login"><a href="{{loginUrl}}">Login</a></li>
+                </ul>
+            </nav>
+        </section>
     </body>
 </html>
