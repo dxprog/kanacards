@@ -14,3 +14,6 @@ input[type="text"] { width:100%; padding:5px; font:24px/1 Georgia, sans-serif; b
 button { font:24px/1 Georgia, sans-serif; width:75%; margin:20px auto; padding:10px 0; display:block; }
 
 #game { position:absolute; background:#fff; top:0; left:0; right:0; bottom:0; width:100%; display:none; }
+#game .word { font-size:48px; text-align:center; margin:10px; }
+#game.correct input { background:#282; }
+#game.error input { background:#f22; }
