@@ -13,8 +13,8 @@ namespace DxCMS\Lib {
         
             if (is_numeric($obj)) {
                 $this->getById($obj);
-            } else {
-            
+            } else if (is_object($obj)) {
+                $this->copyFromDbRow($obj);
             }
         
         }
@@ -106,6 +106,7 @@ namespace DxCMS\Lib {
             if (property_exists($this, '_dbTable') && property_exists($this, '_dbMap') && property_exists($this, '_dbPrimaryKey') && is_numeric($id)) {
                 $query  = 'SELECT ' . implode(',', $this->_dbMap) . ' FROM `' . $this->_dbTable . '` ';
                 $query .= 'WHERE ' . $this->_dbMap[$this->_dbPrimaryKey] . ' = :id LIMIT 1';
+                
                 $result = Db::Query($query, [ ':id' => $id ]);
                 if (null != $result && $result->count === 1) {
                     $retVal = $this->copyFromDbRow(Db::Fetch($result));
