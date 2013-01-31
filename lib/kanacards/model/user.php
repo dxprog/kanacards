@@ -59,11 +59,12 @@ namespace Kanacards\Model {
             if (is_array($fbUser) && isset($fbUser['id'])) {
             
                 $user = new User($fbUser['id']);
-                if ((int) $user->id === (int) $fbUser['id']) {
+                
+                if ($user->id == $fbUser['id']) {
                     $retVal = $user;
                 } else {
                     
-                    $user->id = (int) $fbUser['id'];
+                    $user->id = $fbUser['id'];
                     $user->userName = $fbUser['username'];
                     $user->firstName = $fbUser['first_name'];
                     $user->lastName = $fbUser['last_name'];
