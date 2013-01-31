@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width, height=device-height, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Kanacards</title>
-        <link type="text/css" rel="stylesheet" href="/view/styles.css" />
+        <link type="text/css" rel="stylesheet" href="/view/styles.css?20130130" />
     </head>
     <body>
         <header>
@@ -54,10 +55,13 @@
         </section>
         
         <section id="game">
-            
+            <div class="word"></div>
+            <label for="txtAnswer">Answer</label>
+            <input type="text" name="txtAnswer" id="txtAnswer" />
+            <button id="btnAnswer">Go</button>
         </section>
         
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script type="text/javascript" src="/view/scripts.js"></script>
+        <script type="text/javascript" src="/view/scripts.js?20130130"></script>
     </body>
 </html>
