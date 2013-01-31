@@ -78,6 +78,20 @@ namespace Kanacards\Model {
         public static function getNewestCards($max = 20) {
         
         }
+        
+        /**
+         * Returns a random set of cards
+         */
+        public static function getRandomCards($max = 20) {
+            
+            $retVal = [];
+            $result = \DxCMS\Lib\Db::query('SELECT * FROM cards ORDER BY RAND() LIMIT ' . $max);
+            while ($row = \DxCMS\Lib\Db::fetch($result)) {
+                $retVal[] = new Card($row);
+            }
+            return $retVal;
+            
+        }
     
     }
 
