@@ -40,9 +40,42 @@ namespace Kanacards\Controller {
          * Gets cards by varying criteria
          */
         public static function getDrill($request) {
+            
+            $retVal = null;
+            
+            switch ($request->queryString->type) {
+                case 'random':
+                    $retVal = \Kanacards\Model\Card::getRandomCards();
+                    break;
+            }
         
-            print_r($request);
+            return $retVal;
         
+        }
+        
+        /**
+         * Saves a user's answer to the database
+         */
+        public static function postAnswer($request) {
+            
+            if (isset($_SESSION['user'])) {
+            
+                $cardId = \DxCMS\Lib\Url::getInt('cardId', null, $_POST);
+                $correct = \DxCMS\Lib\Url::getBool('correct', $_POST);
+                echo $cardId;
+                if ($cardId) {
+                
+                    \DxCMS\Lib\Db::query('INSERT INTO answers VALUES (:userId, :cardId, :correct, :date)', [
+                        ':userId' => $_SESSION['user']->id,
+                        ':cardId' => $cardId,
+                        ':correct' => $correct,
+                        ':date' => time()
+                    ]);
+                
+                }
+            
+            }
+            
         }
         
         /**
