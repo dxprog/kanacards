@@ -10,15 +10,23 @@
             $menus:$('#menus'),
             $game:$('#game'),
             $txtAnswer:$('#txtAnswer'),
-            $btnAnswer:$('#btnAnswer')
+            $btnAnswer:$('#btnAnswer'),
+            $btnSkip:$('#btnSkip')
         },
         
         controllers = {
+            
+            drills:function(stack) {
+                
+            },
             
             mode:function(stack) {
                 
                 if (stack.hasOwnProperty('type')) {
                     el.$hdrType.html(stack.type);
+                    el.$menus.find('#mode a').each(function() {
+                        this.setAttribute('href', this.getAttribute('href') + '&type=' + stack.type);
+                    });
                 }
                 
             },
@@ -31,10 +39,23 @@
                     currentCard = 0,
                     mode = null,
                     
+                    submitAnswer = function(correct) {
+                        $.ajax({
+                            url:'/cards/answer/.json',
+                            type:'post',
+                            dataType:'json',
+                            data:{ cardId:cards[currentCard].id, correct:correct ? 'true' : 'false' }
+                        });
+                    },
+                    
                     displayCard = function(index) {
-                        el.$game.removeClass('error').removeClass('correct');
-                        el.$game.find('.word').html(cards[index].word);
-                        el.$txtAnswer.val('').focus();
+                        if (index < cards.length) {
+                            el.$game.removeClass('error').removeClass('correct');
+                            el.$game.find('.word').html(cards[index].word);
+                            el.$txtAnswer.val('').focus();
+                        } else {
+                            window.location.href = '#display=main';
+                        }
                     },
                     
                     answerClick = function(e) {
@@ -42,7 +63,7 @@
                         var correct = false;
                         
                         if (mode === 'read') {
-                            if (el.$txtAnswer.val() === cards[currentCard].translation) {
+                            if (el.$txtAnswer.val().toLowerCase() === cards[currentCard].translation.toLowerCase()) {
                                 el.$game.removeClass('error').addClass('correct');
                                 if (currentCard >= cards.length) {
                                     
@@ -55,13 +76,16 @@
                             }
                         }
                         
-                        $.ajax({
-                            url:'/cards/answer/.json',
-                            type:'post',
-                            dataType:'json',
-                            data:{ cardId:cards[currentCard].id, correct:correct ? 'true' : 'false' }
-                        });
+                        submitAnswer(correct);
                         
+                    },
+                    
+                    skipClick = function(e) {
+                        submitAnswer(false);
+                        if (mode === 'read') {
+                            el.$game.find('.word').html(cards[currentCard].translation);
+                            setTimeout(function() { displayCard(++currentCard); }, 3000);
+                        }
                     },
                     
                     ajaxCallback = function(data) {
@@ -83,6 +107,7 @@
                             success:ajaxCallback
                         });
                         el.$btnAnswer.on('click', answerClick);
+                        el.$btnSkip.on('click', skipClick);
                         
                     }());
             
@@ -115,8 +140,8 @@
                 
                 // Check for a "display" parameter. This is our cue to change the "page"
                 if (params.hasOwnProperty('display')) {
-                    offset = $('#' + params.display).offset();
-                    $('body').animate({ scrollTop:offset.top + 'px' });
+                    $('section').hide();
+                    $('#' + params.display).show();
                     
                     // Check to see if there is a controller for this
                     if (controllers.hasOwnProperty(params.display)) {
