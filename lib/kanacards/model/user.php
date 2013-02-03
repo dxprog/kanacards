@@ -80,6 +80,17 @@ namespace Kanacards\Model {
             return $retVal;
         
         }
+        
+        /**
+         * Returns the user object from the current session if it exists
+         */
+        public static function getCurrentUser() {
+            $retVal = null;
+            if (isset($_SESSION['user'])) {
+                $retVal = $_SESSION['user'];
+            }
+            return $retVal;
+        }
     
     }
 
