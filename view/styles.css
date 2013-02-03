@@ -2,7 +2,7 @@
 
 header { background:#677e52; height:100px; margin-bottom:20px; }
 h1 { width:230px; height:0; padding-top:100px; overflow:hidden; margin:0 auto; background:url(images/logo.png) no-repeat center center; }
-section { width:280px; margin:0 auto 50px; }
+section { width:280px; margin:0 auto 50px; display:none; }
 nav ul { list-style:none; }
 nav li { background:#b7ca79; font:34px/1 Georgia, serif; padding:10px 0; text-align:center; margin-bottom:10px; }
 nav li.login { background:#3b5b99 url(images/facebook.png) no-repeat left bottom; }
@@ -12,6 +12,8 @@ h2 { margin:20px 0 10px; padding-bottom:5px; border-bottom:2px solid #677e52; te
 label { font:24px/1 Georgia, serif; text-align:center; display:block; margin:10px 0 5px; }
 input[type="text"] { width:100%; padding:5px; font:24px/1 Georgia, sans-serif; box-sizing:border-box; }
 button { font:24px/1 Georgia, sans-serif; width:75%; margin:20px auto; padding:10px 0; display:block; }
+
+#main { display:block; }
 
 #game { position:absolute; background:#fff; top:0; left:0; right:0; bottom:0; width:100%; display:none; }
 #game .word { font-size:48px; text-align:center; margin:10px; }
