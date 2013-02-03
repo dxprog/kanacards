@@ -42,11 +42,16 @@ namespace Kanacards\Controller {
         public static function getDrill($request) {
             
             $retVal = null;
+            $user = \Kanacards\Model\User::getCurrentUser();
             
-            switch ($request->queryString->type) {
-                case 'random':
-                    $retVal = \Kanacards\Model\Card::getRandomCards();
-                    break;
+            if ($user) {
+                switch ($request->queryString->type) {
+                    case 'random':
+                        $retVal = \Kanacards\Model\Card::getRandomCards();
+                        break;
+                    case 'trouble':
+                        $retVal = \Kanacards\Model\Card::getTroubleCards($user->id);
+                }
             }
         
             return $retVal;
