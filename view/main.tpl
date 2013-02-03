@@ -39,7 +39,7 @@
                     <ul>
                         <li><a href="#!mode=read&display=game">Read</a></li>
                         <li><a href="#!mode=translate&display=game">Translate</a></li>
-                        <li><a href="#!mode=translate&display=game">Back</a></li>
+                        <li><a href="#!display=drills">Back</a></li>
                     </ul>
                 </nav>
             </section>
@@ -59,6 +59,7 @@
             <label for="txtAnswer">Answer</label>
             <input type="text" name="txtAnswer" id="txtAnswer" />
             <button id="btnAnswer">Go</button>
+            <button id="btnSkip">Unsure</button>
         </section>
         
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
