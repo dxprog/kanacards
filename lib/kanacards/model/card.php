@@ -69,14 +69,30 @@ namespace Kanacards\Model {
          * Returns the cards that the user has gotten wrong the most number of times
          */
         public static function getTroubleCards($userId, $max = 20) {
-        
+            
+            $retVal = [];
+            $query = 'SELECT c.*, '
+                   . 'SUM(a.answer_correct) / COUNT(1) AS correct '
+                   . 'FROM answers a INNER JOIN cards c '
+                   . 'ON c.card_id = a.card_id WHERE '
+                   . 'a.user_id = :userId GROUP BY a.card_id '
+                   . 'ORDER BY correct ASC LIMIT ' . $max;
+                   
+            $result = \DxCMS\Lib\Db::query($query, [ ':userId' => $userId ]);
+            
+            while ($row = \DxCMS\Lib\Db::fetch($result)) {
+                $retVal[] = new Card($row);
+            }
+            return $retVal;
         }
         
         /**
          * Returns the latest cards added
          */
         public static function getNewestCards($max = 20) {
-        
+            
+            
+            
         }
         
         /**
